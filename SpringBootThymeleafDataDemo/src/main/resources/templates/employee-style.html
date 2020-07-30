@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+
+<title>Employee Details</title>
+
+    <title>Data table api</title>
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
+    </script>
+</head>
+<body>
+	<div class="container">
+		<h3>Employee Details table</h3>
+		<hr>
+		<a th:href="@{/api/showFormFormAdd}"
+			class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<table id="example" class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Salary</th>
+					<th>Rating</th>
+					<th>Position</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="temp : ${list}">
+					<td th:text="${temp.firstName}" />
+					<td th:text="${temp.lastName}" />
+					<td th:text="${temp.email}" />
+					<td th:text="${temp.salary}" />
+					<td th:text="${temp.rating}" />
+					<td th:text="${temp.position}"/>
+					<td>
+					<a th:href="@{/api/showFormForUpdate(employeeId=${temp.id})}"
+						class="btn btn-info btn-sm">Update</a>
+					<a th:href="@{/api/delete(employeeId=${temp.id})}"
+						class="btn btn-danger btn-sm"
+						onclick="if(!(confirm('Are you really want to delete this employee?'))) return false">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

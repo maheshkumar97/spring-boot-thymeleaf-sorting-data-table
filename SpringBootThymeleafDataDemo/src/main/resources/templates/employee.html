@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Details</title>
+</head>
+<body>
+	<h3>Employee Details table</h3>
+	<a th:href="@{/api/showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">Add Employee</a>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Employee First Name</th>
+				<th>Employee Last Name</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="temp : ${list}">
+				<td th:text="${temp.firstName}" />
+				<td th:text="${temp.lastName}" />
+				<td th:text="${temp.email}" />
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
