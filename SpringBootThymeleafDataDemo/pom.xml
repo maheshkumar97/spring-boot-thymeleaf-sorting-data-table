@@ -25,7 +25,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -59,6 +59,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+
 	</dependencies>
 
 	<build>
